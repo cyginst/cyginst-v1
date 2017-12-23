@@ -1,11 +1,11 @@
-@if(0)==(0) echo off
+﻿@if(0)==(0) echo off
 :: URL: http://bit.ly/cyginst
 :: 最終更新: 2017年5月20日 13:13:14
 setlocal
 
 REM --- 編集するところ(ここから↓) ---
 set CYG_NAME=project2
-set CYG_BITS=32
+set CYG_BITS=auto
 ::set CYG_CATS=Archive,Python
 set CYG_PKGS=procps,psmisc,tmux,emacs-w32
 set DT_ICONS=1
