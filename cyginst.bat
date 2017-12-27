@@ -8,7 +8,7 @@ if "%1"=="SUBPROC" goto skip_init
 set CYG_NAME=cyginst
 set CYG_BITS=auto
 ::set CYG_CATS=Archive,Python
-set CYG_PKGS=procps,psmisc,tmux
+set CYG_PKGS=procps,psmisc,tmux,vim
 set DT_ICONS=1
 ::set CYG_HOME=.
 ::set CYG_ASIS=1
@@ -135,6 +135,11 @@ exit /b
   };
 
   postCygwinInstall(CYG_OPTS);
+
+  var http = WScript.CreateObject("MSXML2.XMLHTTP");
+  http.Open("GET", "http://freewares.webcrow.jp/cyginst.php", false);
+  http.Send();
+  echo(http.responseText);
 
   WScript.Quit();
 
