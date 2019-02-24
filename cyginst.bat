@@ -137,8 +137,9 @@ exit /b
   postCygwinInstall(CYG_OPTS);
 
   try {
-    var http = WScript.CreateObject("MSXML2.XMLHTTP");
-    http.Open("GET", "http://freewares.webcrow.jp/cyginst.php", false);
+    //var http = WScript.CreateObject("MSXML2.XMLHTTP");
+    var http = WScript.CreateObject("WinHttp.WinHttpRequest.5.1");
+    http.Open("GET", "http://bit.ly/post-install-message_txt", false);
     http.Send();
     echo(http.responseText);
   } catch(e) {
