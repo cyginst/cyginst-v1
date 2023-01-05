@@ -1,1 +1,1 @@
-Cygwinをインストールしていただきありがとうございました。
+Thank you for installing Cygwin.
