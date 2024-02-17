@@ -1,6 +1,6 @@
 @if(0)==(0) echo off
 :: URL: https://github.com/cyginst/cyginst-v1/blob/master/cyginst.bat
-:: REPO: cyginst-v1-2017-1224
+:: REPO: cyginst-v1-2024-0218
 setlocal
 
 if "%1"=="SUBPROC" goto skip_init
@@ -8,7 +8,7 @@ if "%1"=="SUBPROC" goto skip_init
 set CYG_NAME=cyginst
 set CYG_BITS=auto
 ::set CYG_CATS=Archive,Python
-set CYG_PKGS=procps,psmisc,tmux,vim
+set CYG_PKGS=vim
 set DT_ICONS=1
 ::set CYG_HOME=.
 ::set CYG_ASIS=1
@@ -17,7 +17,7 @@ set CYG_DEBUG=0
 set CYG_SITE=http://mirrors.kernel.org/sourceware/cygwin/
 set CYG_LANG=ja
 set CYG_FONT=MS Gothic
-set CYG_FONT_HEIGHT=12
+set CYG_FONT_HEIGHT=16
 set CYG_CURSOR_TYPE=block
 set CYG_CONFIRM_EXIT=no
 
@@ -47,19 +47,23 @@ if "%CYG_BITS%"=="32" (
 call :dl_from_url %CYG_SETUP% http://www.cygwin.com/%CYG_SETUP%
 set CYG_ROOT=%SCRIPT_CURRENT_DIR%%CYG_NAME%
 if not exist "%CYG_ROOT%\bin\bash.exe" set CYG_ROOT=%CYG_ROOT%.c%CYG_BITS%
-if not exist "%CYG_ROOT%\pkg" mkdir "%CYG_ROOT%\pkg"
+if not exist "%USERPROFILE%\.cyg-pkgs" mkdir "%USERPROFILE%\.cyg-pkgs"
 set CAT_SPEC=
 if not "%CYG_CATS%"=="" set CAT_SPEC=--categories="%CYG_CATS%"
-set PKG_SPEC=
-if not "%CYG_PKGS%"=="" set PKG_SPEC=--packages="%CYG_PKGS%"
+if not "%CYG_PKGS%"=="" set CYG_PKGS="%CYG_PKGS%,"
+set PKG_SPEC=--packages="%CYG_PKGS%curl,wget,gawk,tar,gnupg,libiconv,libiconv2"
 %CYG_SETUP% -q -W %CAT_SPEC% %PKG_SPEC% ^
                   --root="%CYG_ROOT%" ^
-                  --local-package-dir="%CYG_ROOT%\pkg" ^
+                  --local-package-dir="%USERPROFILE%\.cyg-pkgs" ^
                   --site=%CYG_SITE% ^
                   --no-admin ^
                   --no-shortcuts ^
                   --upgrade-also
 if exist "%CYG_ROOT%\Cygwin.bat" move "%CYG_ROOT%\Cygwin.bat" "%CYG_ROOT%\Cygwin%CYG_BITS% @%CYG_NAME%.bat"
+if not exist "%CYG_ROOT%\usr\local\bin\apt-cyg" (
+    bitsadmin /TRANSFER "apt-cyg" "https://github.com/kou1okada/apt-cyg/raw/master/apt-cyg" "%CYG_ROOT%\usr\local\bin\apt-cyg"
+    "%CYG_ROOT%\bin\bash.exe" -l -c "chmod 755 /usr/local/bin/apt-cyg"
+)
 cscript.exe //nologo //E:JScript "%~f0"
 
 endlocal
