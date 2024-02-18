@@ -8,7 +8,7 @@ if "%1"=="SUBPROC" goto skip_init
 set CYG_NAME=cyginst
 set CYG_BITS=auto
 ::set CYG_CATS=Archive,Python
-set CYG_PKGS=vim
+set CYG_PKGS=git,vim
 set DT_ICONS=1
 ::set CYG_HOME=.
 ::set CYG_ASIS=1
@@ -374,6 +374,11 @@ exit /b
       }
     }
     editEmacsSiteStart(opts.root + "\\usr\\share\\emacs\\site-lisp\\site-start.el");
+
+    var gitConfigPath = opts.root + "\\etc\\gitconfig";
+    if (!fso.FileExists(gitConfigPath)) {
+        writeTextToFile_Utf8_NoBOM(gitConfigPath, "[core]\n\tautocrlf = input\n");
+    }
 
   }
 
