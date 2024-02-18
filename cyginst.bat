@@ -1,6 +1,6 @@
 @if(0)==(0) echo off
 :: URL: https://github.com/cyginst/cyginst-v1/blob/master/cyginst.bat
-:: REPO: cyginst-v1-2024-0218
+:: Last Modified: 2024/02/18 16:51
 setlocal
 
 if "%1"=="SUBPROC" goto skip_init
@@ -8,7 +8,7 @@ if "%1"=="SUBPROC" goto skip_init
 set CYG_NAME=cyginst
 set CYG_BITS=auto
 ::set CYG_CATS=Archive,Python
-set CYG_PKGS=git,vim
+set CYG_PKGS=
 set DT_ICONS=1
 ::set CYG_HOME=.
 ::set CYG_ASIS=1
@@ -51,7 +51,7 @@ if not exist "%USERPROFILE%\.cyg-pkgs" mkdir "%USERPROFILE%\.cyg-pkgs"
 set CAT_SPEC=
 if not "%CYG_CATS%"=="" set CAT_SPEC=--categories="%CYG_CATS%"
 if not "%CYG_PKGS%"=="" set CYG_PKGS="%CYG_PKGS%,"
-set PKG_SPEC=--packages="%CYG_PKGS%curl,wget,gawk,tar,gnupg,libiconv,libiconv2"
+set PKG_SPEC=--packages="%CYG_PKGS%curl,wget,gawk,tar,gnupg,libiconv,libiconv2,procps,psmisc,tmux,vim"
 %CYG_SETUP% -q -W %CAT_SPEC% %PKG_SPEC% ^
                   --root="%CYG_ROOT%" ^
                   --local-package-dir="%USERPROFILE%\.cyg-pkgs" ^
